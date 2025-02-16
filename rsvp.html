@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Invitation</title>
+    
+    <!-- Firebase CDN -->
+    <script type="module">
+      // Initialize Firebase SDK
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+      import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCGKmYWQZMYuH7XmSod1R1dvcbQPgRJNA0",
+        authDomain: "ian-rsvp.firebaseapp.com",
+        projectId: "ian-rsvp",
+        storageBucket: "ian-rsvp.firebasestorage.app",
+        messagingSenderId: "897606782219",
+        appId: "1:897606782219:web:47b8ea233f38ddef80660e",
+        measurementId: "G-WEXT752N34"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      // Initialize Firestore
+      const db = getFirestore(app);
+      
+      // Function to submit RSVP
+      window.submitRSVP = async function(response) {
+        const name = document.getElementById("name").value;
+        if (!name) {
+            alert("Please enter your name!");
+            return;
+        }
+
+        try {
+          // Add RSVP data to Firestore
+          const docRef = await addDoc(collection(db, "rsvp"), {
+            name: name,
+            response: response,
+            timestamp: serverTimestamp()  // Add timestamp
+          });
+          alert("RSVP saved!");
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+    </script>
+</head>
+<body>
+    <h1>Birthday Party RSVP</h1>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    
+    <button onclick="submitRSVP('Yes')">Attend</button>
+    <button onclick="submitRSVP('No')">Not Attend</button>
+
+</body>
+</html>
