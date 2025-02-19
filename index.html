@@ -86,6 +86,26 @@
             background: linear-gradient(to bottom, #ffdd44, #ff9900);
         }
 
+        @media (max-width: 1000px) {
+            input {
+                width: 90%; /* 입력창이 너무 작아지지 않도록 */
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                flex-direction: column; /* 세로 정렬 */
+            }
+            .wrapper {
+                flex-direction: column;
+                height: auto;
+            }
+        }
 
     </style>
 
